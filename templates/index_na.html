@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block title %}myHome{% end %}
+{% block content %}
+    {% include "menu.html" %}
+    <div id="content">
+        <div class="popup show" id="intro">
+            <div class="popupWrap">
+                <div class="popupInner">
+                    <h1>Веди домашнее хозяйство легко</h1>
+                    <p>Храни свои коммунальные расходы в одном месте. Получай годовые/месячные отчёты.</p>
+                    <button ng-click="show_auth()" class="button goAuth">Войти</button>
+                    <button ng-click="show_registration()" class="button goReg">Зарегистрироваться</button>
+                </div>
+            </div>
+        </div>
+
+        {#    registration popup#}
+        <div ng-show="registration_popup" class="popup" id="popupRegister">
+            <div class="popupWrap">
+                <div class="popupInner">
+                    <div class="form">
+                        <form novalidate name="createUser">
+                            <h2>Регистрация</h2>
+                            <label>Ваш псевдоним</label>
+                            <input name="username" type="text" ng-model="user.username" required/>
+                            <div style="display: none;" class="errorMsg i"></div>
+                            <label>Email</label>
+                            <input name="email" type="email" ng-model="user.email" required/>
+                            <div style="display: none;" class="errorMsg i"></div>
+                            <label>Пароль</label>
+                            <input name="password" type="password" ng-model="user.password" required/>
+                            <div style="display: none;" class="errorMsg i"></div>
+                            <label>Подтвердить пароль</label>
+                            <input name="password_confirm" type="password" ng-model="user.password_confirm" required/>
+                            <div style="display: none;" class="errorMsg i"></div>
+                            <button ng-click="create_user(user)" class="button w220">Зарегистрироваться</button>
+                            <button ng-click="close('popupRegister')" class="button simple close">Отменить</button>
+                        </form>
+                    </div>
+                    <div class="social">
+                        <h2>Используя<br>соц. сеть</h2>
+                        <div class="i facebook"></div>
+                        <div class="i google"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#    registration popup#}
+
+        {#    login popup#}
+        <div class="popup" id="popupAuth" ng-show="auth_popup">
+            <div class="popupWrap">
+                <div class="popupInner">
+                    <div class="form">
+                        <form>
+                            <h2>Вход на сайт</h2>
+                            <label>Email</label>
+                            {#{{ singinForm.email }}#}
+                            <label>Пароль</label>
+                            {#{{ singinForm.password }}#}
+                            <a href="#" class="goRecovery">Забыл пароль?</a><br>
+                            <button class="button w220" data-submit>Войти</button>
+                            <button ng-click="close('popupAuth')" class="button simple close">Отменить</button>
+                        </form>
+                    </div>
+                    <div class="social">
+                        <h2>Используя<br>соц. сеть</h2>
+                        {#<a href="https://www.facebook.com/dialog/oauth?client_id={{ FB.id }}&redirect_uri=http://{{ request.META.HTTP_HOST }}{% url 'fbview' %}&scope={{ FB.scope }}" class="i facebook"></a>#}
+                        {#<a href="https://accounts.google.com/o/oauth2/auth?client_id={{ GP.id }}&scope={{ GP.scope }}&redirect_uri=http://{{ request.META.HTTP_HOST }}{% url 'gpview' %}&response_type=code&access_type=offline" class="i google"></a>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {#    login popup#}
+
+        {#    restore password#}
+        <div class="popup" id="popupRecovery">
+            <div class="popupWrap">
+                <div class="popupInner">
+                    <form>
+                        <h2>Восстановление пароля</h2>
+                        <label>Ваш email</label>
+                        {#{{ restoreForm.email }}#}
+                        <div class="button doRecover" data-submit>Восстановить</div>
+                        <div class="button simple close">Отменить</div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {#    restore password#}
+
+        {#    restore ok#}
+        <div class="popup" id="popupRemind">
+            <div class="popupWrap">
+                <div class="popupInner">
+                    <h2>Восстановление пароля</h2>
+                    <p>На ваш email был отправлен новый пароль.</p>
+                    <p>Не стесняйтесь потерять пароль снова, мы всё равно<br>поможем вам его восстановить.</p>
+                    <a href="#" name="name1" class="button simple close">Закрыть</a>
+                </div>
+            </div>
+        </div>
+        {#    restore ok#}
+    </div>
+{% end %}
