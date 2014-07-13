@@ -20,7 +20,7 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, name='id')
     username = Column(String(60), nullable=False, name='username')
-    password = Column(String(60), nullable=False, name='password')
+    password = Column(String(80), nullable=False, name='password')
     first_name = Column(
         String(60), nullable=True, name='first_name', default=''
     )

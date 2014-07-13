@@ -1,13 +1,13 @@
-"""Add users table
+"""users table
 
-Revision ID: 265763040cc
+Revision ID: d0eba3d032
 Revises: None
-Create Date: 2014-07-11 12:36:23.821320
+Create Date: 2014-07-13 22:53:22.202206
 
 """
 
 # revision identifiers, used by Alembic.
-revision = '265763040cc'
+revision = 'd0eba3d032'
 down_revision = None
 
 from alembic import op
@@ -19,9 +19,11 @@ def upgrade():
     op.create_table('users',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=60), nullable=False),
-    sa.Column('first_name', sa.String(length=60), nullable=False),
-    sa.Column('last_name', sa.String(length=60), nullable=False),
+    sa.Column('password', sa.String(length=80), nullable=False),
+    sa.Column('first_name', sa.String(length=60), nullable=True),
+    sa.Column('last_name', sa.String(length=60), nullable=True),
     sa.Column('date_joined', sa.DateTime(), nullable=True),
+    sa.Column('email', sa.String(length=60), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     ### end Alembic commands ###
