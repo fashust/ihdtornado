@@ -9,7 +9,7 @@ __author__ = 'fashust'
 __email__ = 'fashust.nefor@gmail.com'
 
 
-def check_email(callback, db_session, email):
+def check_email(db_session, email, callback=None):
     """
         check is email used
     """
@@ -18,4 +18,3 @@ def check_email(callback, db_session, email):
         True if not result else False,
         None if not result else 'email already used'
     )
-    return

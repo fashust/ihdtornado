@@ -11,7 +11,7 @@ __author__ = 'fashust'
 __email__ = 'fashust.nefor@gmail.com'
 
 
-def create_user(callback, db_session, data):
+def create_user(db_session, data, callback=None):
     """
         create new user
     """

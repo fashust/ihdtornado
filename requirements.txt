@@ -2,5 +2,5 @@ SQLAlchemy==0.9.6
 WTForms==2.0.1
 alembic==0.6.5
 psycopg2==2.5.3
-tornado==3.2.2
+tornado==4.0
 wtforms-tornado==0.0.1
