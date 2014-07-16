@@ -52,14 +52,16 @@
             <div class="popupWrap">
                 <div class="popupInner">
                     <div class="form">
-                        <form>
+                        <form name="authUser" novalidate>
                             <h2>Вход на сайт</h2>
                             <label>Email</label>
-                            {#{{ singinForm.email }}#}
+                            <input name="email" type="email" ng-model="user.email" required/>
+                            <div style="display: none;" class="errorMsg i"></div>
                             <label>Пароль</label>
-                            {#{{ singinForm.password }}#}
+                            <input name="password" type="password" ng-model="user.password" required/>
+                            <div style="display: none;" class="errorMsg i"></div>
                             <a href="#" class="goRecovery">Забыл пароль?</a><br>
-                            <button class="button w220" data-submit>Войти</button>
+                            <button ng-click="auth_user(user)" class="button w220" data-submit>Войти</button>
                             <button ng-click="close('popupAuth')" class="button simple close">Отменить</button>
                         </form>
                     </div>

@@ -2,9 +2,21 @@
 """
     utils
 """
-from .check_email import check_email
-from .create_user import create_user
+from application.settings.db import get_sessions
+from application.models import Base as DBBase
 
 
 __author__ = 'fashust'
 __email__ = 'fashust.nefor@gmail.com'
+
+
+class AlchemySession(object):
+    """
+        create new sqlalchemy session
+    """
+    @staticmethod
+    def get_db():
+        """
+            generate session object
+        """
+        return get_sessions(DBBase)

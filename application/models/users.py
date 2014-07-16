@@ -5,6 +5,7 @@
 import datetime
 
 from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy_utils import PasswordType
 
 from application.models import Base
 
@@ -20,7 +21,9 @@ class User(Base):
 
     id = Column(Integer, primary_key=True, name='id')
     username = Column(String(60), nullable=False, name='username')
-    password = Column(String(80), nullable=False, name='password')
+    password = Column(PasswordType(
+        schemes=['pbkdf2_sha512',]
+    ), nullable=False, name='password')
     first_name = Column(
         String(60), nullable=True, name='first_name', default=''
     )

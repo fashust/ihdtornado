@@ -22,7 +22,6 @@ class Application(TornadoApplication):
         """
         self.db = get_sessions(DBBase)
         self.cache = None
-        # handlers = HANDLERS
         super(Application, self).__init__(
             handlers=HANDLERS, **TORNADO_SETTINGS
         )
