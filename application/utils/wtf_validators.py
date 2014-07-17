@@ -85,12 +85,16 @@ class PasswordMatch(AlchemySession):
             except (MultipleResultsFound, NoResultFound) as e:
                 if isinstance(e, NoResultFound):
                     db_session.close()
-                    raise ValidationError('Пользователь не найден')
+                    # raise ValidationError('Пользователь не найден')
+                    return
                 elif isinstance(e, MultipleResultsFound):
                     db_session.close()
                     raise ValidationError('critical error')
             if result.password != field.data:
+                db_session.close()
                 raise ValidationError(self.message)
+            form.user = result
+            db_session.close()
 
 
 class EmailExists(AlchemySession):
@@ -121,3 +125,4 @@ class EmailExists(AlchemySession):
             elif isinstance(e, MultipleResultsFound):
                 db_session.close()
                 raise ValidationError('critical error')
+        db_session.close()

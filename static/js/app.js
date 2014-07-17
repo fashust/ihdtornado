@@ -162,7 +162,11 @@ ihd.controller('noauth', ['$scope', '$http', '$cookies', function($scope, $http,
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             }).success(function(response) {
-                console.log('success', response)
+                if (response.status) {
+                    console.log('redirect user to main page');
+                } else {
+                    validate_form(form_name, form_fields, fields_valid, response.errors);
+                }
             }).error(function(data, status, xhr) {
                 console.log('error', data, status, xhr);
             });

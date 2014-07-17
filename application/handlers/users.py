@@ -56,12 +56,7 @@ class UsersCreateViewHandler(BaseRequestHandler):
         """
             create new user
         """
-        # salt = uuid.uuid4().hex
-        # password = hashlib.sha256(
-        #     '{}{}'.format(form_data['password'], salt).encode('utf-8')
-        # ).hexdigest()
         del(form_data['password_confirm'])
-        # form_data['password'] = password
         user = User(**form_data)
         self.db.add(user)
         self.db.commit()
@@ -78,7 +73,11 @@ class UsersAuthenticateViewHandler(BaseRequestHandler):
         """
         auth_form = AuthenticateUserForm(self.request.arguments)
         if auth_form.validate():
-            pass
+            user = getattr(auth_form, 'user', None)
+            if user:
+                self.set_secure_cookie('user', user.username)
+                self.write({'status': True})
+                return
         self.write({
             'status': False,
             'message': 'form not valid',
