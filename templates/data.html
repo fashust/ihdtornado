@@ -1,0 +1,60 @@
+<div id="content">
+    {% if not current_user.flats %}
+        <h1>
+            <div>Приветствуем вас на нашем сайте экономии ресурсов.</div>
+            <div>Чтоб начать полноценно пользоваться сайтом вам необходимо <a href="#" class="createFlat">добавить свою квартиру</a>.</div>
+        </h1>
+    {% else %}
+        {% if not SELECTED_FLAT %}
+            {% if current_user.flats[0].indicators %}
+                {#<h1>На {{ current_user.flats[0].flat.short_address }}, за {{ PREV | date:"F" | lower }} {{ PREV | date:"Y" }} было потрачено <b>{{ current_user.flats[0].flat.total_flat|split_cost }}</b>  </h1>#}
+                <div class="summList">
+{#                    {% selected_flat SELECTED_FLAT current_user.flats as flat_data %}#}
+                    {{ modules.SelectedFlat(SELECTED_FLAT, current_user.flats) }}
+                    {% for item in flat_data.indicators %}
+                        {% if item.show %}
+                            <div class="item">
+                                <div class="sl_1">{{ item.total | split_cost }}</div>
+                                {#<div class="sl_2">{{ item.service | service_name }}, {{ item.units }} {{ item.units | service_units:item.service }}</div>#}
+                                <div class="sl_3">Показание счётчика: {{ item.indicator_data }} на {{ item.datetime }}</div>
+                            </div>
+                        {% end %}
+                    {% end %}
+                </div>
+                <p><strong>Уже самое время заполнить февраль.<br>Начните с показаниев за <a href="#">электричество</a>.</strong></p>
+                {#{% comment %}{% include 'right.html' %}{% endcomment %}#}
+            {% else %}
+{#                todo: add conditin if no installed indicators#}
+                <h1>
+                    <div>Отлично, вы уже настроили квартиру, теперь необходимоввести показания с ваших счётчиков.</div>
+                    <div>Вы можете начать с <a href="#" data-service="2">воды</a>, или <a href="#" data-service="1">электричества</a>.</div>
+                </h1>
+            {% end %}
+        {% else %}
+{#            {% selected_flat SELECTED_FLAT current_user.flats as flat_data %}#}
+            {{ modules.SelectedFlat(SELECTED_FLAT, current_user.flats) }}
+            {% if flat_data.indicators %}
+                {#<h1>На {{ flat_data.flat.short_address }}, за {{ PREV | date:"F" | lower }} {{ PREV | date:"Y" }} было потрачено <b>{{ flat_data.flat.total_flat | split_cost }}</b>  </h1>#}
+                <div class="summList">
+                    {% for item in flat_data.indicators %}
+                        {% if item.show %}
+                            <div class="item">
+                                <div class="sl_1">{{ item.total | split_cost }}</div>
+                                {#<div class="sl_2">{{ item.service | service_name }}, {{ item.units }} {{ item.units | service_units:item.service }}</div>#}
+                                <div class="sl_3">Показание счётчика: {{ item.indicator_data }} на {{ item.datetime }}</div>
+                            </div>
+                        {% end %}
+                    {% end %}
+                </div>
+                <p><strong>Уже самое время заполнить февраль.<br>Начните с показаниев за <a href="#">электричество</a>.</strong></p>
+                {#{% comment %}{% include 'right.html' %}{% endcomment %}#}
+            {% else %}
+{#                todo: add conditin if no installed indicators#}
+                <h1>
+                    <div>Отлично, вы уже настроили квартиру, теперь необходимоввести показания с ваших счётчиков.</div>
+                    <div>Вы можете начать с <a href="#" data-service="2">воды</a>, или <a href="#" data-service="1">электричества</a>.</div>
+                </h1>
+            {% end %}
+        {% end %}
+    {% end %}
+</div>

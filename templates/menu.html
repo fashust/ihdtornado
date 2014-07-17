@@ -1,3 +1,65 @@
-<div>
-    menu
-</div>
+{% if not current_user %}
+    <div id="side">
+        {% include 'logo.html' %}
+        {% include 'copyrights.html' %}
+    </div>
+{% else %}
+    <div id="side">
+        {% include "logo.html" %}
+        <div class="block user">
+            <img src="{{ current_user.avatar }}" width="48" height="48">
+            <a href="#" class="name">{{ current_user.display_name }}</a><br>
+            <a href="/users/logout/" class="goExit">Выйти</a>
+        </div>
+        {% if not current_user.flats %}
+            <div class="block flatsList i">
+				<div class="blockWrp">
+					<label>Квартира:</label>
+					<div class="button createFlat">Добавить квартиру</div>
+				</div>
+            </div>
+        {% else %}
+{#            {{ selected_flat(SELECTED_FLAT, current_user.flats) as flat_data }}#}
+            {{ modules.SelectedFlat(SELECTED_FLAT, current_user.flats) }}
+            {#<div class="block flatsList i">
+				<div class="blockWrp">
+					<label>Квартира:</label>
+					<div class="btn-group flats">
+						<button data-toggle="dropdown" class="btn btn-default dropdown-toggle"><span class="selectedName">{% if not SELECTED_FLAT %}{{ current_user.flats.0.flat.name }}{% else %}{{ flat_data.flat.name }}{% end %}</span> <span class="caret i"></span></button>
+						<ul class="dropdown-menu">
+							{% for flat in current_user.flats %}
+								{% if not SELECTED_FLAT %}
+									<li {% if forloop.first %}class="active"{% end %}><a href="#" data-pk="{{ flat.flat.pk }}" data-name="{{ flat.flat.name }}">{{ flat.flat.name }}</a></li>
+								{% else %}
+									<li {% if flat.flat.pk == SELECTED_FLAT|to_int %}class="active"{% end %}><a href="#" data-pk="{{ flat.flat.pk }}" data-name="{{ flat.flat.name }}">{{ flat.flat.name }}</a></li>
+								{% end %}
+							{% end %}
+							<li><a href="#" data-pk="edit">Редактировать список квартир</a></li>
+							<li><a href="#" data-pk="add">Добавить новую квартиру</a></li>
+						</ul>
+					</div>
+				</div>
+            </div>
+            {% if flat_data.flat.gas_counter == 0 %}<a href="#" class="block gas i" data-service="0"><div class="blockWrp">Газ</div></a>{% end %}
+            {% if not flat_data.flat.hot_water_counter or not flat_data.flat.cold_water_counter %}
+                <div class="block water i">
+					<div class="blockWrp">
+						<div class="title">Вода</div>
+						{% if flat_data.flat.hot_water_counter == 0 %}<a href="#" data-service="2">Горячая</a><br>{% end %}
+						{% if flat_data.flat.cold_water_counter == 0 %}<a href="#" data-service="3">Холодная</a>{% end %}
+					</div>
+                </div>
+            {% end %}
+            {% if flat_data.flat.electricity_counter != 2 %}<a href="#" class="block electricity i" data-service="1"><div class="blockWrp">Электричество</div></a>{% end %}
+             todo: show this in future releases
+            <a href="#" class="block utilities i">
+				<div class="blockWrp">Комунальные<br>услуги</div>
+			</a>
+             endtodo
+            <a href="#" class="block reports i" data-service="report">
+				<div class="blockWrp">Отчеты</div>
+			</a>#}
+        {% end %}
+        {% include "copyrights.html" %}
+    </div>
+{% end %}

@@ -5,7 +5,7 @@
 import datetime
 
 from sqlalchemy import Column, Integer, String, DateTime
-from sqlalchemy_utils import PasswordType
+from sqlalchemy_utils import PasswordType, URLType
 
 from application.models import Base
 
@@ -34,3 +34,29 @@ class User(Base):
         timezone=False), default=datetime.datetime.now, name='date_joined'
     )
     email = Column(String(60), nullable=True, default='', name='email')
+    avatar = Column(URLType, nullable=True, default=None, name='avatar')
+
+    @property
+    def as_dict(self):
+        """
+            object to dict
+        """
+        return {
+            column.name: str(getattr(self, column.name))
+            for column in self.__table__.columns if column.name != 'password'
+        }
+
+    @property
+    def flats(self):
+        """
+            get all flats belong to user
+        """
+        return []
+
+    @property
+    def display_name(self):
+        """
+            pretty user name
+        """
+        return ('{} {}'.format(self.first_name, self.first_name)
+                if self.first_name and self.last_name else self.username)

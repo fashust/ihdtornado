@@ -4,6 +4,7 @@
 """
 from application.settings.db import get_sessions
 from application.models import Base as DBBase
+from .user_data import dump_user_data
 
 
 __author__ = 'fashust'

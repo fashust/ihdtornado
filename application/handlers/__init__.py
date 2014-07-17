@@ -18,9 +18,16 @@ class BaseRequestHandler(RequestHandler):
     @property
     def db(self):
         """
-            get deb session
+            get db session
         """
         return self.application.db
+
+    @property
+    def cache(self):
+        """
+            :return application redis connection
+        """
+        return self.application.cache
 
     def param(self, name, default=None, strip=True):
         """

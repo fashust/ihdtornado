@@ -4,7 +4,9 @@
 """
 from tornado.web import Application as TornadoApplication
 
-from .settings import TORNADO_SETTINGS, get_sessions, HANDLERS
+from .settings import (
+    TORNADO_SETTINGS, get_sessions, HANDLERS, REDIS_CONNECTION
+)
 from .models import Base as DBBase
 
 
@@ -21,7 +23,7 @@ class Application(TornadoApplication):
             init
         """
         self.db = get_sessions(DBBase)
-        self.cache = None
+        self.cache = REDIS_CONNECTION
         super(Application, self).__init__(
             handlers=HANDLERS, **TORNADO_SETTINGS
         )

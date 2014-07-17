@@ -3,6 +3,7 @@
     application settings
 """
 import os
+from application import uimodules
 
 
 __author__ = 'fashust'
@@ -22,9 +23,11 @@ TORNADO_SETTINGS = {
     'template_path': os.path.join(PROJECT_ROOT, 'templates'),
     'static_path': os.path.join(PROJECT_ROOT, 'static'),
     'xsrf_cookies': XSRF_COOKIE,
-    'cookie_secret': COOKIE_SECRET
+    'cookie_secret': COOKIE_SECRET,
+    'ui_modules': uimodules
 }
 
 
 from .db import get_sessions
 from .urls import HANDLERS
+from .redis_conf import REDIS_CONNECTION
