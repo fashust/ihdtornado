@@ -1,5 +1,9 @@
 {% extends "base.html" %}
-{% block title %}index{% end %}
+{% block title %}
+    {#{{ modules.SelectedFlat(SELECTED_FLAT, current_user.flats) }}
+    myHome{% if flat_data %}: {{ flat_data.flat.name }} {% end %}#}
+{% end %}
 {% block content %}
-    {{ current_user }}
+    {% include 'menu.html' %}
+    {% include 'data.html' %}
 {% end %}

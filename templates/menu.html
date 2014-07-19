@@ -7,7 +7,7 @@
     <div id="side">
         {% include "logo.html" %}
         <div class="block user">
-            <img src="{{ current_user.avatar }}" width="48" height="48">
+            <img src="{% if current_user.avatar %}{{ current_user.avatar }}{% end %}" width="48" height="48">
             <a href="#" class="name">{{ current_user.display_name }}</a><br>
             <a href="/users/logout/" class="goExit">Выйти</a>
         </div>

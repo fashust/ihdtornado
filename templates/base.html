@@ -5,9 +5,13 @@
     <title>{% block title %}{% end %}</title>
     <link href="{{ static_url("css/style.css") }}" rel="stylesheet"/>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="{{ static_url("js/underscore-min.js") }}"></script>
-    <script src="{{ static_url("js/angular.min.js") }}"></script>
-    <script src="{{ static_url("js/angular-cookies.min.js") }}"></script>
+    <script src="{{ static_url("js/libs/underscore-min.js") }}"></script>
+    <script src="{{ static_url("js/libs/angular.min.js") }}"></script>
+    <script src="{{ static_url("js/libs/angular-cookies.min.js") }}"></script>
+    <script src="{{ static_url("js/utils.js") }}"></script>
+    <script src="{{ static_url("js/controllers/noauthCtrl.js") }}"></script>
+    <script src="{{ static_url("js/controllers/createUserCtrl.js") }}"></script>
+    <script src="{{ static_url("js/controllers/authUserCtrl.js") }}"></script>
     <script src="{{ static_url("js/app.js") }}"></script>
     {% block extra_head %}{% end %}
 </head>

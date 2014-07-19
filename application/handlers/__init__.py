@@ -2,9 +2,11 @@
 """
     application handlers
 """
+from tornado import gen
 from tornado.web import RequestHandler
 
 from application.models import User
+from application.utils import dump_user_data
 
 
 __author__ = 'fashust'
@@ -43,10 +45,26 @@ class BaseRequestHandler(RequestHandler):
         if cookie:
             try:
                 cookie = cookie.decode('utf-8')
-            except Exception as err:
+            except UnicodeDecodeError as err:
                 self.clear_cookie('user')
                 return None
             user = self.db.query(User).filter(User.username==cookie).all()
             if user:
                 return user[0]
         return None
+
+    def _on_user_data(self, data):
+        """
+            user data callback
+        """
+        self.write({'status': True, 'data': data})
+        self.finish()
+
+    @gen.coroutine
+    def dump_user_data(self, user):
+        """
+            dump all data related to user
+        """
+        yield gen.Task(
+            dump_user_data, user, self.cache, self, self._on_user_data
+        )

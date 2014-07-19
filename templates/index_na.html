@@ -15,7 +15,7 @@
         </div>
 
         {#    registration popup#}
-        <div ng-show="registration_popup" class="popup" id="popupRegister">
+        <div ng-controller="createUserCtrl" ng-show="registration_popup" class="popup" id="popupRegister">
             <div class="popupWrap">
                 <div class="popupInner">
                     <div class="form">
@@ -48,7 +48,7 @@
         {#    registration popup#}
 
         {#    login popup#}
-        <div class="popup" id="popupAuth" ng-show="auth_popup">
+        <div ng-controller="authUserCtrl" class="popup" id="popupAuth" ng-show="auth_popup">
             <div class="popupWrap">
                 <div class="popupInner">
                     <div class="form">

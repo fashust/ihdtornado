@@ -7,7 +7,6 @@ from tornado import gen
 from application.handlers import BaseRequestHandler
 from application.forms import (CreateUserForm, AuthenticateUserForm)
 from application.models import User
-from application.utils import dump_user_data
 
 
 __author__ = 'fashust'
@@ -35,9 +34,7 @@ class UsersCreateViewHandler(BaseRequestHandler):
                 return
             user = yield gen.Task(self.create_user, create_form.data.copy())
             self.set_secure_cookie('user', user.username)
-            yield gen.Task(
-                dump_user_data, user, self.cache, self, self._on_user_data
-            )
+            self.dump_user_data(user)
         else:
             self.write({
                 'status': False,
@@ -65,13 +62,6 @@ class UsersCreateViewHandler(BaseRequestHandler):
         self.db.commit()
         callback(user)
 
-    def _on_user_data(self, data):
-        """
-            user data callback
-        """
-        self.write({'status': True, 'data': data})
-        self.finish()
-
 
 class UsersAuthenticateViewHandler(BaseRequestHandler):
     """
@@ -86,7 +76,7 @@ class UsersAuthenticateViewHandler(BaseRequestHandler):
             user = getattr(auth_form, 'user', None)
             if user:
                 self.set_secure_cookie('user', user.username)
-                self.write({'status': True})
+                self.dump_user_data(user)
                 return
         self.write({
             'status': False,
